@@ -30,7 +30,7 @@ class SocketService {
         }
     )
 
-    lateinit var service: WebSocketSession
+    private lateinit var service: WebSocketSession
     val errorFlow = MutableSharedFlow<MessageData>()
 
     fun receiveMessage() = flow {
