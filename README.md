@@ -7,16 +7,10 @@ This is a simple WebSocket demo app built using Ktor's WebSocket client. It allo
 
 <img src="app/src/main/res/drawable/Screen_Recording_20250227_140052_WebSocketDemo-ezgif.com-video-to-gif-converter.gif" width="400"/>
 
-## ✨ Features
-- Connect to a WebSocket server
-- Send and receive real-time messages
-- Display incoming messages in a chat-like interface
-- Simple and lightweight implementation using Ktor
-
 ## 🛠️ Technologies Used
 - **Kotlin**
 - **Ktor WebSocket Client**
-- **Jetpack Compose / XML** (if applicable)
+- **Jetpack Compose
 - **Coroutines** (for handling WebSocket connections)
 
 ## 🚀 How to Run
