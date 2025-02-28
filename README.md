@@ -10,7 +10,7 @@ This is a simple WebSocket demo app built using Ktor's WebSocket client. It allo
 ## 🛠️ Technologies Used
 - **Kotlin**
 - **Ktor WebSocket Client**
-- **Jetpack Compose
+- **Jetpack Compose**
 - **Coroutines** (for handling WebSocket connections)
 
 ## 🚀 How to Run
