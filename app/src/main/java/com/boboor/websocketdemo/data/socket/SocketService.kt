@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 
 /*
@@ -24,11 +25,7 @@ import kotlinx.coroutines.flow.flowOn
 */
 
 class SocketService {
-    private val client = HttpClient(
-        {
-            install(WebSockets)
-        }
-    )
+    private val client = HttpClient({ install(WebSockets) })
 
     private lateinit var service: WebSocketSession
     val errorFlow = MutableSharedFlow<MessageData>()
@@ -45,16 +42,17 @@ class SocketService {
                 emit(MessageData(message = it.readText(), type = MessageType.INCOMING))
             }
     }.flowOn(Dispatchers.IO).catch {
+        Log.d("ERROR", "error: ${it.message ?: "error is null"}")
         errorFlow.emit(MessageData(message = it.message ?: "Socket Error", type = MessageType.INCOMING))
     }
 
-    suspend fun sendMessage(message: String) {
+    suspend fun sendMessage(message: String) = withContext(Dispatchers.IO) {
         try {
             Log.d("TTT", "outgoing message: $message")
             service.send(Frame.Text(message))
 
         } catch (e: Exception) {
-            Log.d("TTT", "error: ${e.message}")
+            Log.d("ERROR", "error: ${e.message}")
             errorFlow.emit(MessageData(message = e.message ?: "Socket Error", type = MessageType.INCOMING))
         }
     }

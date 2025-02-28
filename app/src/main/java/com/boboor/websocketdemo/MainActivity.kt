@@ -4,9 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,7 +30,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -48,7 +44,6 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.boboor.websocketdemo.data.model.MessageData
 import com.boboor.websocketdemo.data.model.MessageType
@@ -130,45 +125,37 @@ class MainActivity : ComponentActivity() {
                             items(messagesList.size, key = { messagesList[it].id }) { index ->
                                 Row(modifier = Modifier.animateItem()) {
                                     if (messagesList[index].type == MessageType.INCOMING) {
-                                        AnimatedVisibility(
-                                            true,
-                                            enter = slideInHorizontally() + fadeIn()
+
+                                        Box(
+                                            modifier = Modifier
+                                                .widthIn(20.dp, 300.dp)
+                                                .clip(RoundedCornerShape(16.dp))
+                                                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                                                .padding(horizontal = 16.dp, vertical = 8.dp)
                                         ) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .widthIn(20.dp, 300.dp)
-                                                    .clip(RoundedCornerShape(16.dp))
-                                                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                                                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                                            ) {
-                                                Text(
-                                                    messagesList[index].message,
-                                                    style = MaterialTheme.typography.bodyMedium,
-                                                    color = MaterialTheme.colorScheme.onSurface
-                                                )
-                                            }
+                                            Text(
+                                                messagesList[index].message,
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                color = MaterialTheme.colorScheme.onSurface
+                                            )
                                         }
-                                        Spacer(modifier = Modifier.weight(1f))
 
                                     } else {
                                         Spacer(modifier = Modifier.weight(1f))
-                                        AnimatedVisibility(
-                                            true,
-                                            enter = slideInHorizontally() + fadeIn()
-                                        ) {
-                                            Box(
-                                                modifier = Modifier
-                                                    .widthIn(20.dp, 300.dp)
-                                                    .clip(RoundedCornerShape(16.dp))
-                                                    .background(MaterialTheme.colorScheme.tertiaryContainer)
-                                                    .padding(horizontal = 16.dp, vertical = 8.dp)
 
-                                            ) {
-                                                Text(
-                                                    messagesList[index].message,
-                                                    color = MaterialTheme.colorScheme.onTertiaryContainer
-                                                )
-                                            }
+                                        Box(
+                                            modifier = Modifier
+                                                .widthIn(20.dp, 300.dp)
+                                                .clip(RoundedCornerShape(16.dp))
+                                                .background(MaterialTheme.colorScheme.tertiaryContainer)
+                                                .padding(horizontal = 16.dp, vertical = 8.dp)
+
+                                        ) {
+                                            Text(
+                                                messagesList[index].message,
+                                                color = MaterialTheme.colorScheme.onTertiaryContainer
+                                            )
+
                                         }
                                     }
                                 }
